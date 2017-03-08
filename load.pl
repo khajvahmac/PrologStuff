@@ -1,0 +1,4 @@
+:- [
+	labyrinth,
+	labyrinth2
+].
