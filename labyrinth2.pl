@@ -17,10 +17,10 @@ nextPath([X|CurrentPath], Next, R, Result) :-
     ((connected(X, Next); connected(Next, X)), nextPath([], Next, [X|CurrentPath], Result)); 
     nextPath(CurrentPath, Next, R, Result).
 
-solution(CurrentBlock, Goal, PathAlreadyPassed, [Goal|Solution]) :- 
-    solutionImpl(CurrentBlock, Goal, PathAlreadyPassed, [], [], Solution), write([Goal|Solution]).
+solution(CurrentBlock, Goal, PathAlreadyPassed, Solution) :- 
+    solutionImpl(CurrentBlock, Goal, PathAlreadyPassed, [], [], Solution).
 
-    solutionImpl(Goal, Goal, _, Path, _, Path).
+    solutionImpl(Goal, Goal, _, Path, _, Solution) :- nextPath(Path, Goal, [], Solution).
     solutionImpl(CurrentBlock, Goal, PathAlreadyPassed, Path, Queue, Solution) :- 
         nextConnected(CurrentBlock, PathAlreadyPassed, RNext), 
         append(RNext, Queue, [Y|NewQueue]),
